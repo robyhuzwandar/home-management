@@ -14,4 +14,22 @@ export class InventoryService {
   create(body: InventoryBody) {
     return this.repository.save(body);
   }
+
+  getAll() {
+    return this.repository.find();
+  }
+
+  getOne(id: string) {
+    return this.repository.findOneBy({
+      id,
+    });
+  }
+
+  update(id: string, body: InventoryBody) {
+    return this.repository.update(id, body);
+  }
+
+  delete(id: string) {
+    return this.repository.delete(id);
+  }
 }

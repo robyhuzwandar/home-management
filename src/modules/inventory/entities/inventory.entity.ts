@@ -1,5 +1,6 @@
 import { BaseEntity } from 'src/entities/base.entity';
-import { Entity, Column } from 'typeorm';
+import { StorageEntity } from 'src/modules/storage/entities/storage.entity';
+import { Entity, Column, ManyToOne } from 'typeorm';
 
 @Entity('inventory')
 export class InventoryEntity extends BaseEntity {
@@ -11,4 +12,7 @@ export class InventoryEntity extends BaseEntity {
 
   @Column()
   qty: number;
+
+  @ManyToOne(() => StorageEntity, (storage) => storage.inventory)
+  storage: StorageEntity;
 }
