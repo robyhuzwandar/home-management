@@ -1,13 +1,15 @@
+import { StorageModule } from './modules/storage/storage.module';
+import { StorageService } from './modules/storage/storage.service';
 import { InventoryModule } from './modules/inventory/inventory.module';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { InventoryEntity } from './modules/inventory/entities/inventory.entity';
+import { StorageEntity } from './modules/storage/entities/storage.entity';
 
 @Module({
   imports: [
+    StorageModule,
     InventoryModule,
     ConfigModule.forRoot({
       isGlobal: true,
@@ -21,10 +23,11 @@ import { InventoryEntity } from './modules/inventory/entities/inventory.entity';
       database: process.env.POSTGRES_DATABASE,
       autoLoadEntities: true,
       synchronize: true,
-      entities: [InventoryEntity],
+      entities: [InventoryEntity, StorageEntity],
+      migrations: ['dist/db/migrations/*.js'],
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [StorageService],
 })
 export class AppModule {}

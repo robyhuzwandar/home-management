@@ -13,6 +13,8 @@ export class InventoryEntity extends BaseEntity {
   @Column()
   qty: number;
 
-  @ManyToOne(() => StorageEntity, (storage) => storage.inventory)
+  @ManyToOne(() => StorageEntity, (storage) => storage.inventory, {
+    onDelete: 'SET NULL',
+  })
   storage: StorageEntity;
 }
